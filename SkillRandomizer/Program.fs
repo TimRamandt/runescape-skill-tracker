@@ -15,6 +15,6 @@
 //    0 // return an integer exit code
 
 [<EntryPoint>]
-printf "helleu!"
+printf "Bored on RuneScape? This app will determine what skill you should train next!"
 Console.ReadKey()
 0
