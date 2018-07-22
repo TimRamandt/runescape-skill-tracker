@@ -15,6 +15,7 @@
 //    0 // return an integer exit code
 
 [<EntryPoint>]
-printf "Bored on RuneScape? This app will determine what skill you should train next!"
-Console.ReadKey()
-0
+let main argv = 
+    printfn "Bored on RuneScape? This commandline app will determine what skill you should train next."
+    Console.ReadKey()
+    0
