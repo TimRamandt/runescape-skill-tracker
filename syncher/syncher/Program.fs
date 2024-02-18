@@ -1,6 +1,7 @@
 ﻿open System.Net.Http
 open System
 open SkillEntry
+open Newtonsoft.Json
 
 let fetchProgress(name: string) = 
     async {
@@ -11,7 +12,7 @@ let fetchProgress(name: string) =
     }
 
 let filterSkills(body: string) = 
-   let data = body.Split '\n' |> Array.take 30
+   let data = body.Split '\n' |> Array.take 30 
    let mutable skills : SkillEntry.Entry list = []
    for i in 0 .. data.Length-1 do 
       let dataEntry = data[i].Split ','
@@ -22,15 +23,16 @@ let filterSkills(body: string) =
         XP = double dataEntry[2]
       }
       skills <- entry :: skills 
-   skills
+   skills |> List.rev
 
 
-let parseToJson(skills: string[]) =
-   printfn "not implemented yet"
+let parseToJson(skills: SkillEntry.Entry list) =
+   JsonConvert.SerializeObject(skills)
 
    
 [<EntryPoint>]
 let main argv = 
+    printfn "enter thy name:"
     let name = Console.ReadLine()
     let filteredSkills = fetchProgress(name) |> Async.RunSynchronously |> filterSkills
     printfn "done"

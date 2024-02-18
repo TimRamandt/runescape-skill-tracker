@@ -20,6 +20,6 @@ open System
               |> fun dir -> Path.Combine(dir, relativePath) 
               |> File.ReadAllText
 
-            let skills = exampleResponse |> filterSkills
+            let json = exampleResponse |> filterSkills |> parseToJson
             // Assert
             Assert.AreEqual(true, true)
