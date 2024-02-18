@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Syncher", "syncher\Syncher.fsproj", "{D809BE5C-E125-4D4D-999B-0718FFC76938}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "WebServer", "WebServer\WebServer.fsproj", "{230C53F8-F162-4FFF-B7CC-CA5DEA6E56A6}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Tests", "Tests\Tests.fsproj", "{6A5AB988-6657-4241-B01B-0C0C0E136685}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D809BE5C-E125-4D4D-999B-0718FFC76938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D809BE5C-E125-4D4D-999B-0718FFC76938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D809BE5C-E125-4D4D-999B-0718FFC76938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D809BE5C-E125-4D4D-999B-0718FFC76938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230C53F8-F162-4FFF-B7CC-CA5DEA6E56A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230C53F8-F162-4FFF-B7CC-CA5DEA6E56A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230C53F8-F162-4FFF-B7CC-CA5DEA6E56A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230C53F8-F162-4FFF-B7CC-CA5DEA6E56A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A5AB988-6657-4241-B01B-0C0C0E136685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5AB988-6657-4241-B01B-0C0C0E136685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5AB988-6657-4241-B01B-0C0C0E136685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5AB988-6657-4241-B01B-0C0C0E136685}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B09B58F-18FB-4622-9542-095F144932FA}
+	EndGlobalSection
+EndGlobal
