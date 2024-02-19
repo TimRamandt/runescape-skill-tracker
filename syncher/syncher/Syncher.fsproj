@@ -6,12 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Database\Models\Sync.fs" />
+    <Compile Include="Database\Context.fs" />
+    <Compile Include="Database\Repositories\Sync.fs" />
     <Compile Include="Types\SkillEntry.fs" />
-    <Compile Include="Database.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.21" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

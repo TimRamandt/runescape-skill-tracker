@@ -4,8 +4,8 @@ type Entry = {
    Name: string; 
    Rank: int; 
    Level: int; 
-   XP: double
-}
+   XP: uint64 
+ }
 
 let skills = [| "total"; 
                 "attack"; 

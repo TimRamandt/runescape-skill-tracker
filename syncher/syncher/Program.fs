@@ -1,6 +1,8 @@
 ﻿open System.Net.Http
 open System
 open SkillEntry
+open SyncRepository
+open Models.Sync
 open Newtonsoft.Json
 
 let fetchProgress(name: string) = 
@@ -20,7 +22,7 @@ let filterSkills(body: string) =
         Name = SkillEntry.skills[i]
         Rank = int dataEntry[0];
         Level = int dataEntry[1];
-        XP = double dataEntry[2]
+        XP = uint64 dataEntry[2]
       }
       skills <- entry :: skills 
    skills |> List.rev
@@ -34,6 +36,13 @@ let parseToJson(skills: SkillEntry.Entry list) =
 let main argv = 
     printfn "enter thy name:"
     let name = Console.ReadLine()
-    let filteredSkills = fetchProgress(name) |> Async.RunSynchronously |> filterSkills
+    let skills = fetchProgress(name) |> Async.RunSynchronously |> filterSkills |> parseToJson
+    let simpleSync = {
+       id = 1
+       data = skills 
+       createdAt = DateTime.Now
+    }
+    SyncRepository.addSync(simpleSync) |> ignore
+    let syncs = SyncRepository.getSyncs
     printfn "done"
     0
