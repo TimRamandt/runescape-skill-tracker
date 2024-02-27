@@ -11,13 +11,15 @@ type Context =
     new(options: DbContextOptions<Context>) = { inherit DbContext(options) }
 
     [<DefaultValue>]
-    val mutable syncs : DbSet<Sync>
+    val mutable Synchronisations : DbSet<Synchronisation>
 
-    member public this.Syncs with get() = this.syncs
-                               and set p = this.syncs <- p
+    member public this.Synchronisation with get() = this.Synchronisations and set syncs = this.Synchronisations <- syncs 
+
 
     override __.OnConfiguring(optionsBuilder : DbContextOptionsBuilder) =
-      optionsBuilder.UseSqlite("db.db")
+      optionsBuilder.UseSqlite("Data Source=db.sqlite")
       |> ignore
 
+    member this.EnsureDatabaseCreated() =
+      this.Database.EnsureCreated()
 

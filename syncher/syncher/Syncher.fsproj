@@ -8,7 +8,7 @@
   <ItemGroup>
     <Compile Include="Database\Models\Sync.fs" />
     <Compile Include="Database\Context.fs" />
-    <Compile Include="Database\Repositories\Sync.fs" />
+    <Compile Include="Database\Repositories\Synchronisation.fs" />
     <Compile Include="Types\SkillEntry.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
