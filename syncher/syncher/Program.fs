@@ -36,7 +36,7 @@ let parseToJson(skills: SkillEntry.Entry list) =
 let main argv = 
     printfn "enter thy name:"
     let name = Console.ReadLine()
-    let skills = fetchProgress(name) |> Async.RunSynchronously |> filterSkills |> parseToJson
+    let skills = name |> fetchProgress |> Async.RunSynchronously |> filterSkills |> parseToJson
     let simpleSync = Synchronisation(id = 1, data = skills, createdAt = DateTime.Now)
     SyncRepository.addSynchronisationAsync(simpleSync) |> Async.RunSynchronously |> ignore
     let allSyncs = SyncRepository.getSynchronisationsAsync

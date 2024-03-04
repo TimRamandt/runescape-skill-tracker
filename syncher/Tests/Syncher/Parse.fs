@@ -13,13 +13,13 @@ open System
         [<Test>]
         member this.``Parse input to type``() =
             // Arrange
-            let relativePath = "../../../Resources/example-response.txt"
-            let exampleResponse = 
+            let json = 
               Assembly.GetExecutingAssembly().Location 
               |> Path.GetDirectoryName 
-              |> fun dir -> Path.Combine(dir, relativePath) 
+              |> fun dir -> Path.Combine(dir, "../../../Resources/example-response.txt") 
               |> File.ReadAllText
+              |> filterSkills
+              |> parseToJson
 
-            let json = exampleResponse |> filterSkills |> parseToJson
             // Assert
             Assert.AreEqual(true, true)
