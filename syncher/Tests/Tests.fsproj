@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Helpers.fs" />
+    <Compile Include="DiffinatorTests.fs" />
+    <Content Include="Resources\example-response-diff-rank-decrease.txt" />
+    <Content Include="Resources\example-response-diff-rank-increase.txt" />
     <Content Include="Resources\example-response.txt" />
     <Compile Include="Syncher\Parse.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />

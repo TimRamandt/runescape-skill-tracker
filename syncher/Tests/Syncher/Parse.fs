@@ -2,9 +2,7 @@
 
 open NUnit.Framework
 open Program
-open System.IO
-open System.Reflection
-open System
+open Helpers;
 
 [<TestFixture>]
     type Tests() =
@@ -12,14 +10,7 @@ open System
         // Define a test method
         [<Test>]
         member this.``Parse input to type``() =
-            // Arrange
-            let json = 
-              Assembly.GetExecutingAssembly().Location 
-              |> Path.GetDirectoryName 
-              |> fun dir -> Path.Combine(dir, "../../../Resources/example-response.txt") 
-              |> File.ReadAllText
-              |> filterSkills
-              |> parseToJson
+            let json =  "example-response.txt" |> Helpers.dummyJson 
 
             // Assert
             Assert.AreEqual(true, true)
