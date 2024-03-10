@@ -5,7 +5,7 @@ open Models.Sync
 open Microsoft.EntityFrameworkCore
 
 let ctx = new Context()
-ctx.EnsureDatabaseCreated() |> ignore
+ctx.EnsureDatabaseCreated |> ignore
 
 let getSynchronisationsAsync(): Async<Synchronisation[]> =
     async {
