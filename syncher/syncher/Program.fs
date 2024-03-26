@@ -22,7 +22,7 @@ let filterSkills(body: string) =
         Name = SkillEntry.skills[i]
         Rank = int dataEntry[0];
         Level = int dataEntry[1];
-        XP = uint64 dataEntry[2]
+        XP = int64 dataEntry[2]
       }
       skills <- entry :: skills 
    skills |> List.rev

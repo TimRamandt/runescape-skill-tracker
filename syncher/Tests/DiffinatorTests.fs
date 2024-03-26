@@ -25,6 +25,8 @@ open Diffinator;
             let diff = Diffinator.calculateDiff(baseSync, compareSync);
 
             // Assert
-            Assert.AreEqual(true, true)
+            Assert.AreEqual(diff[0], "3009,271,4000003")
+            Assert.AreEqual(diff[12], "99,0,0")
+            Assert.AreEqual(diff[29], "112,841,4000003")
 
         
