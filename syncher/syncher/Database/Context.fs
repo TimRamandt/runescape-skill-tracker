@@ -4,22 +4,33 @@ open Models.Sync
 open Microsoft.EntityFrameworkCore
 
 
-type Context = 
-   inherit DbContext
+type DatabaseType =
+    | InMemory
+    | SQLite
 
-    new() = { inherit DbContext() }
-    new(options: DbContextOptions<Context>) = { inherit DbContext(options) }
+type Context(options: DbContextOptions<Context>) = 
+    inherit DbContext(options)
 
     [<DefaultValue>]
     val mutable Synchronisations : DbSet<Synchronisation>
 
-    member public this.Synchronisation with get() = this.Synchronisations and set syncs = this.Synchronisations <- syncs 
-
-
-    override __.OnConfiguring(optionsBuilder : DbContextOptionsBuilder) =
-      optionsBuilder.UseSqlite("Data Source=db.sqlite")
-      |> ignore
+    member public this.Synchronisation 
+        with get() = this.Synchronisations 
+        and set syncs = this.Synchronisations <- syncs 
 
     member this.EnsureDatabaseCreated() =
-      this.Database.EnsureCreated()
+        this.Database.EnsureCreated()
 
+let createContext (dbType: DatabaseType) =
+    let options =
+        match dbType with
+        | InMemory ->
+            DbContextOptionsBuilder<Context>()
+                .UseInMemoryDatabase("database_name")
+                .Options
+        | SQLite ->
+            DbContextOptionsBuilder<Context>()
+                .UseSqlite("Data Source=db.sqlite")
+                .Options
+
+    new Context(options)

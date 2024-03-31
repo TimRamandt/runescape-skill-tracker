@@ -1,9 +1,10 @@
 ﻿open System.Net.Http
 open System
 open SkillEntry
-open SyncRepository
+open SyncDb
 open Models.Sync
 open Newtonsoft.Json
+open Context
 
 let fetchProgress(name: string) = 
     async {
@@ -34,11 +35,14 @@ let parseToJson(skills: SkillEntry.Entry list) =
    
 [<EntryPoint>]
 let main argv = 
+    let context = createContext(DatabaseType.SQLite)
+    context.EnsureDatabaseCreated() |> ignore
+    let syncRepo = SyncDb.Repository(context)
+
     printfn "enter thy name:"
     let name = Console.ReadLine()
     let skills = name |> fetchProgress |> Async.RunSynchronously |> filterSkills |> parseToJson
     let sync = Synchronisation(data = skills, createdAt = DateTime.Now)
-    SyncRepository.addSynchronisationAsync(sync) |> Async.RunSynchronously |> ignore
-    let allSyncs = SyncRepository.getSynchronisationsAsync
+    syncRepo.addSynchronisationAsync(sync) |> Async.RunSynchronously |> ignore
     printfn "done"
     0

@@ -1,18 +1,18 @@
-﻿module SyncRepository 
+﻿module SyncDb 
 
 open Context
 open Models.Sync
 open Microsoft.EntityFrameworkCore
 
-let ctx = new Context()
-ctx.EnsureDatabaseCreated |> ignore
+type Repository(ctx: Context) =
+    member this.Ctx = ctx
 
-let getSynchronisationsAsync(): Async<Synchronisation[]> =
-    async {
-        let! syncs = ctx.Synchronisations.ToArrayAsync() |> Async.AwaitTask
-        return syncs
-    }
-
-let addSynchronisationAsync(sync: Synchronisation) =
-    ctx.Synchronisations.AddAsync(sync).AsTask() |> Async.AwaitTask |> ignore 
-    ctx.SaveChangesAsync() |> Async.AwaitTask   
+    member this.getSynchronisationsAsync(): Async<Synchronisation[]> =
+        async {
+            let! syncs = this.Ctx.Synchronisations.ToArrayAsync() |> Async.AwaitTask
+            return syncs
+        }
+    
+    member this.addSynchronisationAsync(sync: Synchronisation) =
+        this.Ctx.Synchronisations.AddAsync(sync).AsTask() |> Async.AwaitTask |> ignore 
+        this.Ctx.SaveChangesAsync() |> Async.AwaitTask   
