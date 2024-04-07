@@ -5,6 +5,8 @@ open Program
 open Models.Sync
 open System;
 open Diffinator;
+open Context
+open SyncDb
 
 
 [<TestFixture>]
@@ -39,6 +41,32 @@ open Diffinator;
                              |> fun data -> new Synchronisation(data, DateTime.Now)
 
             let diff = Diffinator.calculateDiff(baseSync, compareSync);
+
+            // Assert
+            Assert.AreEqual(diff[0], "3009,-564,1000000")
+            Assert.AreEqual(diff[16], "120,-4,1000000")
+            Assert.AreEqual(diff[29], "111,0,0")
+
+        [<Test>]
+        member this.``calculate latest diff``() =             
+            let context = createContext DatabaseType.InMemory
+            context.EnsureDatabaseCreated() |> ignore
+            let syncRepo = context |> SyncDb.Repository
+
+            "example-response.txt" |> Helpers.dummyJson 
+                                   |> fun data -> new Synchronisation(data, DateTime.Now.Subtract(TimeSpan.FromDays(1)))
+                                   |> syncRepo.addSynchronisationAsync
+                                   |> Async.RunSynchronously
+                                   |> ignore
+
+            "example-response-diff-rank-decrease.txt" |> Helpers.dummyJson 
+                                                      |> fun data -> new Synchronisation(data, DateTime.Now)
+                                                      |> syncRepo.addSynchronisationAsync
+                                                      |> Async.RunSynchronously
+                                                      |> ignore
+
+            
+            let diff = Diffinator.LatestDiff(syncRepo) 
 
             // Assert
             Assert.AreEqual(diff[0], "3009,-564,1000000")
