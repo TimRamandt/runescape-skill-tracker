@@ -1,15 +1,27 @@
 open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.Hosting
+open Microsoft.AspNetCore.Cors.Infrastructure
+open Microsoft.Extensions.DependencyInjection
 open Diffinator
 open SyncDb
 open Context
 open System.Linq
 
+let ConfigureServices (services : IServiceCollection) =
+    services.AddCors() |> ignore
+
 [<EntryPoint>]
 let main args =
     let builder = WebApplication.CreateBuilder(args)
+    ConfigureServices(builder.Services)
+
     let app = builder.Build()
+
+    app.UseCors(Action<CorsPolicyBuilder>(fun builder -> 
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader() |> ignore
+    )) |> ignore
+
     let context = createContext(DatabaseType.SQLite)
     context.EnsureDatabaseCreated() |> ignore
     let syncRepo = new SyncDb.Repository(context)
