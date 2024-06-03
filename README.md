@@ -35,3 +35,5 @@ cd frontend
 npm run dev
 ```
 Install the packages with `npm install` if its the first time running this project.
+
+[color palette](https://colorhunt.co/palette/22283131363f76abaeeeeeee)
