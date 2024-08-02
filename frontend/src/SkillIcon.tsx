@@ -37,7 +37,6 @@ const SkillIcon = ({name}: {name: string}) => {
         necromancy: "-897px",
 
     };
-    console.log(iconPosition[name])
     return (
         <div style={{
         backgroundImage: `url(${icon_strip})`,
