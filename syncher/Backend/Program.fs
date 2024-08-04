@@ -7,6 +7,7 @@ open Diffinator
 open SyncDb
 open Context
 open System.Linq
+open Newtonsoft.Json
 
 let ConfigureServices (services : IServiceCollection) =
     services.AddCors() |> ignore
@@ -33,7 +34,13 @@ let main args =
             |> Seq.last 
             |> fun sync -> sync.data)) |> ignore
 
-    app.MapGet("/diff", Func<string>(fun () -> Diffinator.LatestDiff(syncRepo) |> String.concat "\n")) |> ignore
+    app.MapGet("/diff", Func<string>(fun () -> Diffinator.LatestDiff(syncRepo) |> String.concat "\n")) 
+    |> ignore
+
+    app.MapGet("/syncs", Func<string>(fun () -> 
+        syncRepo.getSynchronisationsAsync() |> Async.RunSynchronously |> JsonConvert.SerializeObject))
+        |> ignore
+
 
     app.Run()
 

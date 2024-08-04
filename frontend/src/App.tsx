@@ -27,22 +27,23 @@ function App() {
     });
     return diffEntries;
   }
-    useEffect(() => {
-      const startState = async() => {
-      try {
-        const [skills, diff] = await Promise.all([fetchSkills(), fetchDiff()]);
-        const entries: Entry[] = skills.map((skill: SkillEntry, index: number) => ({
-            ...skill,
-            ...diff[index]
-        }))
-        setEntries(entries)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false); 
-      }
-    };
-      startState()
-    }, []);
+
+  useEffect(() => {
+    const startState = async() => {
+    try {
+      const [skills, diff] = await Promise.all([fetchSkills(), fetchDiff()]);
+      const entries: Entry[] = skills.map((skill: SkillEntry, index: number) => ({
+          ...skill,
+          ...diff[index]
+      }))
+      setEntries(entries)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false); 
+    }
+  };
+    startState()
+  }, []);
 
     if (loading) {
       return <>

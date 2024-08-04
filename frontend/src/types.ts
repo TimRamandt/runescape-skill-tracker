@@ -12,3 +12,9 @@ export type DiffEntry = {
 }
 
 export type Entry = SkillEntry & DiffEntry;
+
+export type Sync = {
+    Id: number,
+    Data: SkillEntry[],
+    createdAt: string
+}
