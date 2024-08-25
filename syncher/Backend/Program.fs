@@ -6,8 +6,8 @@ open Microsoft.Extensions.DependencyInjection
 open Diffinator
 open SyncDb
 open Context
-open System.Linq
 open Newtonsoft.Json
+open Microsoft.AspNetCore.Http
 
 let ConfigureServices (services : IServiceCollection) =
     services.AddCors() |> ignore
@@ -34,8 +34,14 @@ let main args =
             |> Seq.last 
             |> fun sync -> sync.data)) |> ignore
 
-    app.MapGet("/diff", Func<string>(fun () -> Diffinator.LatestDiff(syncRepo) |> String.concat "\n")) 
-    |> ignore
+    app.MapGet("diff", Func<HttpContext ,string>(fun (ctx: HttpContext) -> 
+       match ctx.Request.Query.["id"] |> Seq.toList with
+       | [value] -> value
+       | [] -> Diffinator.LatestDiff(syncRepo) |> String.concat "\n"
+       | _ -> "Ignored multiple values."
+    )) |> ignore
+
+
 
     app.MapGet("/syncs", Func<string>(fun () -> 
         syncRepo.getSynchronisationsAsync() |> Async.RunSynchronously |> JsonConvert.SerializeObject))
