@@ -4,7 +4,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.Extensions.DependencyInjection
 open Diffinator
-open SyncDb
+open SyncRepository
 open Context
 open Newtonsoft.Json
 open Microsoft.AspNetCore.Http
@@ -25,7 +25,7 @@ let main args =
 
     let context = createContext(DatabaseType.SQLite)
     context.EnsureDatabaseCreated() |> ignore
-    let syncRepo = new SyncDb.Repository(context)
+    let syncRepo = new SyncRepository.Repository(context)
 
 
     app.MapGet("/", Func<string>(fun () -> 

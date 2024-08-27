@@ -6,7 +6,7 @@ open Models.Sync
 open System;
 open Diffinator;
 open Context
-open SyncDb
+open SyncRepository
 
 
 [<TestFixture>]
@@ -51,7 +51,7 @@ open SyncDb
         member this.``calculate latest diff``() =             
             let context = createContext DatabaseType.InMemory
             context.EnsureDatabaseCreated() |> ignore
-            let syncRepo = context |> SyncDb.Repository
+            let syncRepo = context |> SyncRepository.Repository
 
             "example-response.txt" |> Helpers.dummyJson 
                                    |> fun data -> new Synchronisation(data, DateTime.Now.Subtract(TimeSpan.FromDays(1)))

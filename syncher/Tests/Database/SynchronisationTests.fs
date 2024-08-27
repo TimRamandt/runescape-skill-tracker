@@ -3,7 +3,7 @@
 open NUnit.Framework
 open Models.Sync
 open Context
-open SyncDb
+open SyncRepository
 open System;
 
 open Moq
@@ -22,7 +22,7 @@ open Moq
 
         [<Test>]
         member this.``Test SyncRepo getSynchronisationsAsync``() =
-            let syncRepo = createContext |> SyncDb.Repository
+            let syncRepo = createContext |> SyncRepository.Repository
 
             syncRepo.addSynchronisationAsync(new Synchronisation(data="sync day before yesterday", createdAt = DateTime.Now.Subtract(TimeSpan.FromDays(2)))) |> Async.RunSynchronously |> ignore
             syncRepo.addSynchronisationAsync(new Synchronisation(data="sync yesterday", createdAt = DateTime.Now.Subtract(TimeSpan.FromDays(1)))) |> Async.RunSynchronously |> ignore
@@ -37,7 +37,7 @@ open Moq
 
         [<Test>]
         member this.``Test SyncRepo findSynchronisationByDateAsync``() =
-            let syncRepo = createContext |> SyncDb.Repository
+            let syncRepo = createContext |> SyncRepository.Repository
             let today = DateTime.Now
 
             syncRepo.addSynchronisationAsync(new Synchronisation(data="sync yesterday", createdAt = today.Subtract(TimeSpan.FromDays(1)))) |> Async.RunSynchronously |> ignore

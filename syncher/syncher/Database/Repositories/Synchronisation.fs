@@ -1,4 +1,4 @@
-﻿module SyncDb 
+﻿module SyncRepository 
 
 open Context
 open Models.Sync
@@ -13,7 +13,7 @@ type Repository(ctx: Context) =
             let! syncs = this.Ctx.Synchronisations.ToArrayAsync() |> Async.AwaitTask
             return syncs
         }
-    
+
     member this.addSynchronisationAsync(sync: Synchronisation) =
         this.Ctx.Synchronisations.AddAsync(sync).AsTask() |> Async.AwaitTask |> ignore 
         this.Ctx.SaveChangesAsync() |> Async.AwaitTask   

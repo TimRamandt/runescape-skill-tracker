@@ -11,6 +11,10 @@ Start the backend with `dotnet run --project .\Backend\Backend.fsproj` or run wi
 #### Database
 Database is SQLite, currently no dummy database provided, this will change in the future.
 
+##### Migrations
+Make sure that dotnet-ef is installed, can be done with this command: `dotnet tool install --global dotnet-ef --version 6.*`
+Migrations are currently not supported in F#; one word for this: PAIN
+
 #### Unit tests
 There are unit tests, so it doesn't constantly pull data from the RuneScape hiscores. It is best to test functionality here.
 

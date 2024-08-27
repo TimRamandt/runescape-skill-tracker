@@ -3,7 +3,7 @@ open Models.Sync
 open Newtonsoft.Json
 open SkillEntry
 open System
-open SyncDb
+open SyncRepository
 
 let calculateDiff(startSync: Synchronisation, endSync: Synchronisation) =
      let mutable diff : string list = []
@@ -13,11 +13,11 @@ let calculateDiff(startSync: Synchronisation, endSync: Synchronisation) =
          diff <- sprintf "%d,%d,%d" endData[i].Level (startData[i].Rank - endData[i].Rank) (endData[i].XP-startData[i].XP) :: diff 
      diff |> List.rev
 
-let LatestDiff(syncRepo: SyncDb.Repository) =
+let LatestDiff(syncRepo: SyncRepository.Repository) =
     let latestSyncs = syncRepo.getSynchronisationsAsync() |> Async.RunSynchronously |> Seq.sortByDescending(fun sync -> sync.createdAt) |> Seq.take 2 |> Seq.toList
     calculateDiff(latestSyncs[1], latestSyncs[0])
 
-let SpecificDiff(startTime: DateTime, endTime: DateTime, syncRepo: SyncDb.Repository) = 
+let SpecificDiff(startTime: DateTime, endTime: DateTime, syncRepo: SyncRepository.Repository) = 
     //call 2 syncs from the specific dateTime
     //call calculateDiff then
     None
